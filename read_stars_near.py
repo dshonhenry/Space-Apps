@@ -7,7 +7,7 @@ from astroquery.gaia import Gaia
 from fastapi import Response
 
 
-def read_stars_near(ra, dec, dist, num_results=10000):
+def read_stars_near(ra, dec, dist, num_results=10000, max_distance_factor=1):
     dist = float(dist)
     ra = float(ra)
     dec = float(dec)
@@ -22,6 +22,9 @@ def read_stars_near(ra, dec, dist, num_results=10000):
         max_distance = 40 - (dist - 40) ** 0.5
     else:
         max_distance = 20 + (dist - 440) ** 0.5
+
+    # set max_distance_factor = 0.8 or some number < 1 will reduce the number of results but will make the query faster, use this to tweak the number of results to your liking
+    max_distance *= max_distance_factor
 
     near_limit = max(dist - max_distance, 1e-12)
     far_limit = dist + max_distance
