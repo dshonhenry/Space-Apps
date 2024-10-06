@@ -19,6 +19,7 @@ app = FastAPI()
 origins = [
     "http://localhost:3000",
     "http://localhost:8080",
+    "https://dshonhenry.github.io/space-apps-ui"
 ]
 
 app.add_middleware(
